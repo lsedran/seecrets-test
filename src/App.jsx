@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from 'react'
 import confetti from 'canvas-confetti'
 import './styles.css'
-import { getTodaysPuzzle } from './data/dailyPuzzles'
+import { dailyPuzzles } from './data/dailyPuzzles'
 import { isValidWord, getSuggestions } from './utils/wordValidator'
 import PuzzleDebug from './PuzzleDebug'
 import Modal from './components/Modal'
 
 const MAX_ATTEMPTS = 6
-const BLUR_LEVELS = [30, 24, 18, 12, 6, 0] // 6 steps, unblurring equally per guess
+const BLUR_LEVELS = [50, 40, 30, 20, 10, 0] // 6 steps, starting at 50px blur and decreasing
 
 // Add keyboard layout constants
 const KEYBOARD_ROWS = [
@@ -79,7 +79,8 @@ function seededShuffle(array, seed) {
 }
 
 function App() {
-  const [currentPuzzle, setCurrentPuzzle] = useState(null)
+  const [currentPuzzleIndex, setCurrentPuzzleIndex] = useState(0);
+  const currentPuzzle = dailyPuzzles[currentPuzzleIndex];
   const [attempts, setAttempts] = useState(0)
   const [isAttemptAnimating, setIsAttemptAnimating] = useState(false)
   const [guess, setGuess] = useState([])
@@ -100,8 +101,6 @@ function App() {
   const [currentBlurLevel, setCurrentBlurLevel] = useState(BLUR_LEVELS[0])
   const [activeDropdown, setActiveDropdown] = useState(null)
   const [showIntro, setShowIntro] = useState(true);
-  const [customPuzzles, setCustomPuzzles] = useState([]);
-  const [isHardMode, setIsHardMode] = useState(localStorage.getItem('seecretHardMode') === 'true');
   const inputRefs = useRef([]);
   const formRef = useRef(null);
   const [animatingSeequence, setAnimatingSeequence] = useState([]); // indices of animating guesses
@@ -110,7 +109,6 @@ function App() {
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
   const [correctLetters, setCorrectLetters] = useState(new Set());
   const [isJiggling, setIsJiggling] = useState(false);
-  const [currentPuzzleIndex, setCurrentPuzzleIndex] = useState(0);
   const [allPuzzlesCompleted, setAllPuzzlesCompleted] = useState(false);
   const [showEndOfPlaytest, setShowEndOfPlaytest] = useState(false);
 
@@ -148,46 +146,13 @@ function App() {
     setBestCorrectCount(0);
   }, []);
 
-  // Load custom puzzles
-  useEffect(() => {
-    const loadCustomPuzzles = async () => {
-      try {
-        const response = await fetch('/custom-images/manifest.json')
-        if (response.ok) {
-          const manifest = await response.json()
-          // Sort puzzles by word length (shortest to longest)
-          const sortedPuzzles = manifest.puzzles.sort((a, b) => a.answer.length - b.answer.length)
-          setCustomPuzzles(sortedPuzzles)
-        }
-      } catch (error) {
-        console.log('No custom puzzles found')
-      }
-    }
-    loadCustomPuzzles()
-  }, [])
-
-  // Load game state from localStorage and get today's puzzle
+  // Load game state from localStorage and get the first puzzle
   useEffect(() => {
     const savedStreak = localStorage.getItem('seecretStreak')
     const savedLastPlayed = localStorage.getItem('seecretLastPlayed')
     const hasSeenTutorial = localStorage.getItem('seecretTutorialSeen')
     const savedHighContrast = localStorage.getItem('seecretHighContrast')
-    const lastPuzzleDate = localStorage.getItem('seecretLastPuzzleDate')
     const savedBestCount = localStorage.getItem('seecretBestCount')
-    const savedPuzzleIndex = localStorage.getItem('seecretPuzzleIndex')
-    const savedPuzzleTime = localStorage.getItem('seecretPuzzleTime')
-    
-    // Get current time in EST
-    const now = new Date()
-    const estTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }))
-    const today = estTime.toDateString()
-    const currentHour = estTime.getHours()
-    const currentTime = estTime.getTime()
-    
-    // Check if it's a new day (after 9 AM EST) or if we need to set initial puzzle
-    const isNewDay = !lastPuzzleDate || 
-                    lastPuzzleDate !== today || 
-                    (lastPuzzleDate === today && currentHour >= 9 && (!savedPuzzleTime || currentTime - parseInt(savedPuzzleTime) >= 24 * 60 * 60 * 1000))
     
     if (savedStreak) setStreak(parseInt(savedStreak))
     if (savedLastPlayed) setLastPlayed(savedLastPlayed)
@@ -197,48 +162,12 @@ function App() {
     if (hasSeenTutorial) {
       setShowHowToPlay(false)
     }
-    
-    if (isNewDay) {
-      setAttempts(0)
-      setGuessHistory([])
-      setGameState('playing')
-      setHasWon(false)
-      setGuess([])
-      setErrorMessage('')
-      setBestCorrectCount(0)
-      localStorage.setItem('seecretLastPuzzleDate', today)
-      localStorage.setItem('seecretBestCount', '0')
-      localStorage.setItem('seecretPuzzleTime', currentTime.toString())
-      
-      // Get a new puzzle index for the day
-      const newPuzzleIndex = Math.floor(Math.random() * customPuzzles.length)
-      localStorage.setItem('seecretPuzzleIndex', newPuzzleIndex.toString())
-    }
-    
-    // Load the puzzle
-    const loadPuzzle = async () => {
-      if (customPuzzles.length > 0) {
-        const puzzleIndex = parseInt(localStorage.getItem('seecretPuzzleIndex') || '0');
-        
-        const customPuzzle = customPuzzles[puzzleIndex]
-        setCurrentPuzzle({
-          image: `/custom-images/${customPuzzle.image}`,
-          answer: customPuzzle.answer.toUpperCase(),
-          category: customPuzzle.category || 'Custom'
-        })
-      } else {
-        const puzzle = getTodaysPuzzle()
-        setCurrentPuzzle(puzzle)
-      }
-    }
-    
-    loadPuzzle()
 
     const urlParams = new URLSearchParams(window.location.search)
     if (urlParams.get('debug') === 'true') {
       setShowDebug(true)
     }
-  }, [customPuzzles])
+  }, [])
 
   useEffect(() => {
     if (showIntro) {
@@ -642,21 +571,36 @@ function App() {
     }
   };
 
-  // Add this function to handle next puzzle
+  // Handler for next puzzle
   const handleNextPuzzle = () => {
     const nextIndex = currentPuzzleIndex + 1;
-    if (nextIndex < customPuzzles.length) {
+    if (nextIndex < dailyPuzzles.length) {
       setCurrentPuzzleIndex(nextIndex);
-      setCurrentPuzzle({
-        image: `/custom-images/${customPuzzles[nextIndex].image}`,
-        answer: customPuzzles[nextIndex].answer.toUpperCase(),
-        category: customPuzzles[nextIndex].category || 'Custom'
-      });
-      setCorrectLetters(new Set()); // Reset correct letters
-      setCurrentLetterIndex(0); // Reset to first position
-      handlePlayAgain();
+      setCorrectLetters(new Set());
+      setCurrentLetterIndex(0);
+      setAttempts(0);
+      setGuessHistory([]);
+      setGameState('playing');
+      setHasWon(false);
+      setGuess(Array(dailyPuzzles[nextIndex].answer.length).fill(''));
+      setErrorMessage('');
+      setBestCorrectCount(0);
+      setCurrentBlurLevel(BLUR_LEVELS[0]);
+      setShowShareModal(false);
     } else {
       setAllPuzzlesCompleted(true);
+      setCurrentPuzzleIndex(0);
+      setCorrectLetters(new Set());
+      setCurrentLetterIndex(0);
+      setAttempts(0);
+      setGuessHistory([]);
+      setGameState('playing');
+      setHasWon(false);
+      setGuess(Array(dailyPuzzles[0].answer.length).fill(''));
+      setErrorMessage('');
+      setBestCorrectCount(0);
+      setCurrentBlurLevel(BLUR_LEVELS[0]);
+      setShowShareModal(false);
     }
   };
 
@@ -911,11 +855,7 @@ function App() {
               <button onClick={() => {
                 setAllPuzzlesCompleted(false);
                 setCurrentPuzzleIndex(0);
-                setCurrentPuzzle({
-                  image: `/custom-images/${customPuzzles[0].image}`,
-                  answer: customPuzzles[0].answer.toUpperCase(),
-                  category: customPuzzles[0].category || 'Custom'
-                });
+                setCurrentPuzzle(dailyPuzzles[0]);
                 handlePlayAgain();
               }}>Play Again</button>
             </>

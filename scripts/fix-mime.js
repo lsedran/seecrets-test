@@ -19,13 +19,28 @@ const publicImagesDir = path.join(publicDir, 'images');
 if (fs.existsSync(publicImagesDir)) {
   const files = fs.readdirSync(publicImagesDir);
   files.forEach(file => {
-    fs.copyFileSync(
-      path.join(publicImagesDir, file),
-      path.join(distImagesDir, file)
-    );
+    // Only copy image files (jpg, jpeg, png, gif, webp)
+    if (file.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+      fs.copyFileSync(
+        path.join(publicImagesDir, file),
+        path.join(distImagesDir, file)
+      );
+    }
   });
-  console.log('Copied images to dist folder');
+  console.log('Copied all images to dist folder');
 }
+
+// Read and modify index.html to ensure relative paths
+const indexPath = path.join(distDir, 'index.html');
+let indexContent = fs.readFileSync(indexPath, 'utf-8');
+
+// Ensure all paths are relative
+indexContent = indexContent
+  .replace(/src="\//g, 'src="./')
+  .replace(/href="\//g, 'href="./');
+
+fs.writeFileSync(indexPath, indexContent);
+console.log('Updated paths in index.html');
 
 // Create a _redirects file for Netlify
 const redirectsContent = `/* /index.html 200`;
