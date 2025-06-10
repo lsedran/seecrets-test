@@ -731,8 +731,13 @@ function App() {
         <div className="intro-overlay" onClick={handleIntroClick}>
           <h1 className="intro-title">SEECRET</h1>
           <div className="eye-container">
-            <div className="eye">
-              <div className="eye-pupil"></div>
+            <div className="eye-realistic">
+              <div className="eye-sclera"></div>
+              <div className="eye-iris">
+                <div className="eye-iris-texture"></div>
+                <div className="eye-pupil"></div>
+                <div className="eye-highlight"></div>
+              </div>
             </div>
           </div>
           <p className="intro-subtitle">Can you See it?</p>

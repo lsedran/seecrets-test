@@ -2825,4 +2825,69 @@ input:checked + .switch-slider:before {
   background: none;
   transform: none;
 }
+
+.eye-realistic {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.eye-sclera {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle at 60% 40%, #fff 70%, #e0e0e0 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 30px #3333, 0 0 0 8px #fff8;
+  z-index: 1;
+}
+.eye-iris {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle at 60% 40%, #4a90e2 40%, #003366 100%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px #00336688, 0 0 0 4px #fff8;
+  z-index: 2;
+  overflow: hidden;
+}
+.eye-iris-texture {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: repeating-conic-gradient(from 0deg, #4a90e2 0deg 10deg, #003366 10deg 20deg);
+  opacity: 0.15;
+  border-radius: 50%;
+  z-index: 2;
+}
+.eye-pupil {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  background: radial-gradient(circle, #222 80%, #000 100%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  box-shadow: 0 0 10px #000a, 0 0 0 2px #2228;
+}
+.eye-highlight {
+  position: absolute;
+  top: 28px;
+  left: 60px;
+  width: 28px;
+  height: 12px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 50%;
+  transform: rotate(-20deg);
+  z-index: 4;
+  filter: blur(0.5px);
+}
   
