@@ -379,7 +379,7 @@ body:not(.intro-active) .header-banner {
 
 .header-buttons {
   display: flex;
-  gap: 10px;
+  gap: 32px;
   align-items: center;
   justify-content: flex-end;
 }
@@ -1003,6 +1003,33 @@ h1 {
 
   .header-tagline {
     font-size: 10px;
+  }
+
+  .header-hints {
+    display: flex;
+    gap: 16px;
+    margin-top: 4px;
+    font-family: 'Major Mono Display', monospace;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+  }
+
+  .header-hints span {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .header-hints {
+      font-size: 12px;
+      gap: 8px;
+    }
+    
+    .header-hints span {
+      padding: 2px 6px;
+    }
   }
 }
 
@@ -1710,31 +1737,32 @@ input:checked + .switch-slider:before {
 .share-button {
   padding: 14px 32px;
   font-size: 16px;
-  background: #1B4D3E;
+  background: #990011 !important;
   color: white;
   border: none;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
-  box-shadow: 0 0 15px rgba(27, 77, 62, 0.3);
+  box-shadow: 0 0 15px rgba(153, 0, 17, 0.3) !important;
   text-transform: uppercase;
   font-weight: 500;
   letter-spacing: 0.5px;
   margin-top: 8px;
   animation: pulsate 2s ease-in-out infinite;
+  font-family: 'Major Mono Display', monospace;
 }
 
 .share-button:hover {
-  background: #153D32;
+  background: #7D000E !important;
   animation: none;
   transform: translateY(-2px);
-  box-shadow: 0 0 25px rgba(27, 77, 62, 0.5);
+  box-shadow: 0 0 25px rgba(153, 0, 17, 0.5) !important;
 }
 
 .share-button:active {
   transform: translateY(0);
-  box-shadow: 0 0 15px rgba(27, 77, 62, 0.3);
+  box-shadow: 0 0 15px rgba(153, 0, 17, 0.3) !important;
 }
 
 @keyframes bounce {
@@ -1976,9 +2004,10 @@ input:checked + .switch-slider:before {
 }
 
 .tutorial-content {
-  padding: 0;
-  max-width: 600px;
+  padding: 24px;
+  max-width: 800px;
   margin: 0 auto;
+  text-align: center;
 }
 
 .tutorial-content h2 {
@@ -2653,4 +2682,90 @@ input:checked + .switch-slider:before {
 
 .next-puzzle-button:hover {
   background-color: #4a7d45;
-} 
+}
+
+.play-now-button {
+  margin-top: 24px;
+  padding: 16px 48px;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  background: #990011;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: pulsate 2s ease-in-out infinite;
+  box-shadow: 0 4px 12px rgba(153, 0, 17, 0.2);
+  font-family: 'Major Mono Display', monospace;
+  letter-spacing: 1px;
+}
+
+.play-now-button:hover {
+  transform: translateY(-2px);
+  background: #7D000E;
+  box-shadow: 0 6px 16px rgba(153, 0, 17, 0.3);
+  animation: none;
+}
+
+.play-now-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(153, 0, 17, 0.2);
+}
+
+.dark-mode .play-now-button {
+  background: #990011;
+  box-shadow: 0 4px 12px rgba(153, 0, 17, 0.2);
+}
+
+.dark-mode .play-now-button:hover {
+  background: #7D000E;
+  box-shadow: 0 6px 16px rgba(153, 0, 17, 0.3);
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(153, 0, 17, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(153, 0, 17, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(153, 0, 17, 0.3);
+  }
+}
+
+.clue-button {
+  font-family: 'Major Mono Display', monospace;
+  font-size: 18px;
+  letter-spacing: 2px;
+  background: none;
+  color: white;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.clue-button:hover {
+  color: #ffe0e6;
+  background: none;
+  transform: none;
+}
+
+.clue-button:active {
+  color: #ffb3c6;
+  background: none;
+  transform: none;
+}
+  

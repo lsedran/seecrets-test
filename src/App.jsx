@@ -7,7 +7,7 @@ import PuzzleDebug from './PuzzleDebug'
 import Modal from './components/Modal'
 
 const MAX_ATTEMPTS = 6
-const BLUR_LEVELS = [50, 40, 30, 20, 10, 0] // 6 steps, starting at 50px blur and decreasing
+const BLUR_LEVELS = [25, 20, 15, 10, 5, 0] // 6 steps, more gradual unblurring
 
 // Add keyboard layout constants
 const KEYBOARD_ROWS = [
@@ -78,8 +78,23 @@ function seededShuffle(array, seed) {
   return arr;
 }
 
+// Helper function to convert a number (1-6) to emoji
+function numberToEmoji(num) {
+  const emojiNumbers = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣'];
+  return emojiNumbers[num - 1] || num;
+}
+
 function App() {
-  const [currentPuzzleIndex, setCurrentPuzzleIndex] = useState(0);
+  // Add this function to get the current puzzle index based on date
+  const getCurrentPuzzleIndex = () => {
+    const startDate = new Date('2025-06-09'); // Updated start date to June 9, 2025
+    const today = new Date();
+    const diffTime = Math.abs(today - startDate);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays % dailyPuzzles.length;
+  };
+
+  const [currentPuzzleIndex, setCurrentPuzzleIndex] = useState(getCurrentPuzzleIndex());
   const currentPuzzle = dailyPuzzles[currentPuzzleIndex];
   const [attempts, setAttempts] = useState(0)
   const [isAttemptAnimating, setIsAttemptAnimating] = useState(false)
@@ -111,6 +126,7 @@ function App() {
   const [isJiggling, setIsJiggling] = useState(false);
   const [allPuzzlesCompleted, setAllPuzzlesCompleted] = useState(false);
   const [showEndOfPlaytest, setShowEndOfPlaytest] = useState(false);
+  const [showClueModal, setShowClueModal] = useState(false);
 
   // Add click outside handler
   useEffect(() => {
@@ -150,7 +166,6 @@ function App() {
   useEffect(() => {
     const savedStreak = localStorage.getItem('seecretStreak')
     const savedLastPlayed = localStorage.getItem('seecretLastPlayed')
-    const hasSeenTutorial = localStorage.getItem('seecretTutorialSeen')
     const savedHighContrast = localStorage.getItem('seecretHighContrast')
     const savedBestCount = localStorage.getItem('seecretBestCount')
     
@@ -158,10 +173,6 @@ function App() {
     if (savedLastPlayed) setLastPlayed(savedLastPlayed)
     if (savedHighContrast) setHighContrastMode(savedHighContrast === 'true')
     if (savedBestCount) setBestCorrectCount(parseInt(savedBestCount))
-    
-    if (hasSeenTutorial) {
-      setShowHowToPlay(false)
-    }
 
     const urlParams = new URLSearchParams(window.location.search)
     if (urlParams.get('debug') === 'true') {
@@ -604,6 +615,46 @@ function App() {
     }
   };
 
+  // Add this effect to check for date changes
+  useEffect(() => {
+    const checkDateChange = () => {
+      const newPuzzleIndex = getCurrentPuzzleIndex();
+      if (newPuzzleIndex !== currentPuzzleIndex) {
+        setCurrentPuzzleIndex(newPuzzleIndex);
+        setAttempts(0);
+        setGuessHistory([]);
+        setGameState('playing');
+        setHasWon(false);
+        setGuess(Array(dailyPuzzles[newPuzzleIndex].answer.length).fill(''));
+        setErrorMessage('');
+        setBestCorrectCount(0);
+        setCurrentBlurLevel(BLUR_LEVELS[0]);
+        setShowShareModal(false);
+        setCurrentLetterIndex(0);
+        setCorrectLetters(new Set());
+      }
+    };
+
+    // Check immediately
+    checkDateChange();
+
+    // Set up interval to check every minute
+    const interval = setInterval(checkDateChange, 60000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, [currentPuzzleIndex]);
+
+  // Add effect to focus input when tutorial is closed
+  useEffect(() => {
+    if (!showHowToPlay && !showIntro && currentPuzzle && currentPuzzle.answer) {
+      setTimeout(() => {
+        if (formRef.current) formRef.current.focus();
+        if (inputRefs.current[0]) inputRefs.current[0].focus();
+      }, 100);
+    }
+  }, [showHowToPlay, showIntro, currentPuzzle]);
+
   if (!currentPuzzle) return <div>Loading...</div>
 
   // Show debug view if enabled
@@ -630,7 +681,7 @@ function App() {
         </div>
 
         <div className="example-item">
-          <div className="example-image" style={{ filter: 'blur(4px)' }}>
+          <div className="example-image" style={{ filter: 'blur(7px)' }}>
             <img src="examples/lake.jpg" alt="Lake example" />
           </div>
           <div className="example-letter-boxes">
@@ -662,6 +713,15 @@ function App() {
         <li>Only <strong>correct</strong> letters are highlighted on the <strong>keyboard</strong></li>
         <li>A new <em>Seecret</em> drops every day — come back to keep your <strong>streak</strong> alive!</li>
       </ul>
+
+      <button 
+        className="play-now-button"
+        onClick={() => {
+          setShowHowToPlay(false);
+        }}
+      >
+        Play Now!
+      </button>
     </div>
   );
 
@@ -687,6 +747,13 @@ function App() {
           </div>
           <div className="header-buttons">
             <button 
+              className="clue-button" 
+              onClick={() => setShowClueModal(true)}
+              aria-label="Share puzzle"
+            >
+              CLUE
+            </button>
+            <button 
               className="help-button" 
               onClick={() => {
                 setActiveDropdown(null);
@@ -709,7 +776,7 @@ function App() {
         <div className="image-container">
           <img 
             src={currentPuzzle.image}
-            alt="Guess what this is"
+            alt="Seecret image"
             style={{ 
                     filter: `blur(${currentBlurLevel}px)`,
               transition: 'filter 0.5s ease-out'
@@ -763,17 +830,7 @@ function App() {
                 {/* Add onscreen keyboard */}
                 {(gameState === 'won' || gameState === 'lost') ? (
                   <div className="keyboard">
-                    <div className="keyboard-row">
-                      <button
-                        className="keyboard-key next-puzzle-button"
-                        onClick={() => {
-                          setShowShareModal(false);
-                          handleNextPuzzle();
-                        }}
-                      >
-                        Next Puzzle
-                      </button>
-                    </div>
+                    {/* No Next Puzzle button here anymore */}
                   </div>
                 ) : gameState === 'playing' && (
                   <div className="keyboard">
@@ -804,7 +861,6 @@ function App() {
           isOpen={showHowToPlay}
           onClose={() => {
             setShowHowToPlay(false)
-            localStorage.setItem('seecretTutorialSeen', 'true')
           }}
         >
           {tutorialContent}
@@ -820,7 +876,7 @@ function App() {
           <div className="win-image-container">
             <img 
               src={currentPuzzle.image}
-              alt={currentPuzzle.answer}
+              alt="Seecret image"
               style={{ filter: 'blur(0px)' }}
             />
           </div>
@@ -828,14 +884,24 @@ function App() {
           <p className="win-description">
             The hidden image was <strong>{currentPuzzle.answer.toUpperCase()}</strong>—and you guessed it in {guessHistory.length}!
           </p>
-          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-            {!allPuzzlesCompleted && (
-              <button className="share-button" onClick={() => {
-                setShowShareModal(false);
-                handleNextPuzzle();
-              }}>Next Puzzle</button>
-            )}
-          </div>
+          <button 
+            className="share-button"
+            onClick={() => {
+              const shareText = `I GOT THE SEECRET IN ${numberToEmoji(guessHistory.length)}...Did you see it too? 👁️`;
+              if (navigator.share) {
+                navigator.share({
+                  title: 'Seecret',
+                  text: shareText,
+                  url: window.location.href
+                });
+              } else {
+                navigator.clipboard.writeText(shareText);
+                alert('Share text copied to clipboard!');
+              }
+            }}
+          >
+            Share Results
+          </button>
         </div>
       </Modal>
 
@@ -848,7 +914,7 @@ function App() {
           <h2>Game Over</h2>
           <p>The answer was <strong>{currentPuzzle.answer}</strong></p>
           {!allPuzzlesCompleted ? (
-            <button onClick={handleNextPuzzle}>Next Puzzle</button>
+            null
           ) : (
             <>
               <p>Congratulations! You've completed all puzzles!</p>
@@ -871,7 +937,7 @@ function App() {
           <div className="win-image-container">
             <img 
               src={currentPuzzle.image}
-              alt={currentPuzzle.answer}
+              alt="Seecret image"
               style={{ filter: 'blur(0px)' }}
             />
           </div>
@@ -887,6 +953,38 @@ function App() {
           </p>
         </div>
       </Modal>
+
+      {showClueModal && (
+        <Modal isOpen={showClueModal} onClose={() => setShowClueModal(false)} title={null}>
+          <div style={{textAlign: 'center', padding: '16px 0'}}>
+            <div style={{fontSize: '22px', marginBottom: '10px'}}>🔍 Reveal a Hint!</div>
+            <div style={{fontSize: '16px', marginBottom: '22px'}}>Stuck in the blur? Summon a clue by sharing the Seecret.</div>
+            <button
+              className="clue-modal-button"
+              onClick={() => {
+                if (currentPuzzle && currentPuzzle.answer) {
+                  navigator.clipboard.writeText(window.location.href);
+                  // Fill in first and last letters
+                  const newGuess = [...guess];
+                  newGuess[0] = currentPuzzle.answer[0];
+                  newGuess[currentPuzzle.answer.length - 1] = currentPuzzle.answer[currentPuzzle.answer.length - 1];
+                  setGuess(newGuess);
+                  // Focus the first empty input after the first letter
+                  const firstEmptyIndex = newGuess.findIndex((letter, index) => index > 0 && !letter);
+                  if (firstEmptyIndex !== -1) {
+                    inputRefs.current[firstEmptyIndex]?.focus();
+                  }
+                  setShowClueModal(false);
+                  alert('Game URL copied to clipboard!');
+                }
+              }}
+              style={{marginTop: '10px', fontSize: '17px'}}
+            >
+              🪄 Copy Link & Unveil Clue
+            </button>
+          </div>
+        </Modal>
+      )}
     </>
   )
 }
