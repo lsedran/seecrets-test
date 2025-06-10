@@ -2793,4 +2793,36 @@ input:checked + .switch-slider:before {
   background: #60000A !important;
   color: #fff !important;
 }
+
+.header-buttons button.clue-button {
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  padding: 0 8px;
+  color: white;
+  font-family: 'Major Mono Display', monospace;
+  font-size: 18px;
+  letter-spacing: 2px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.header-buttons button.clue-button:hover {
+  color: #ffe0e6;
+  background: none;
+  transform: none;
+}
+
+.header-buttons button.clue-button:active {
+  color: #ffb3c6;
+  background: none;
+  transform: none;
+}
   
