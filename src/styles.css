@@ -2770,22 +2770,27 @@ input:checked + .switch-slider:before {
 }
 
 .clue-modal-button {
-  color: #990011 !important;
+  background: #990011 !important;
+  color: #fff !important;
   font-family: 'Major Mono Display', monospace !important;
   font-size: 22px !important;
   font-weight: 700;
-  border: 1.5px solid #990011;
-  background: #fff;
-  border-radius: 8px;
-  padding: 10px 28px;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 40px;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 8px rgba(153, 0, 17, 0.08);
+  animation: pulsate 2s ease-in-out infinite;
+  letter-spacing: 1px;
 }
 .clue-modal-button:hover {
-  background: #ffe0e6;
-  color: #7D000E !important;
-  border-color: #7D000E;
+  background: #7D000E !important;
+  color: #fff !important;
   box-shadow: 0 4px 16px rgba(153, 0, 17, 0.15);
+}
+.clue-modal-button:active {
+  background: #60000A !important;
+  color: #fff !important;
 }
   
