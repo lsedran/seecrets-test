@@ -731,13 +731,8 @@ function App() {
         <div className="intro-overlay" onClick={handleIntroClick}>
           <h1 className="intro-title">SEECRET</h1>
           <div className="eye-container">
-            <div className="eye-realistic">
-              <div className="eye-sclera"></div>
-              <div className="eye-iris">
-                <div className="eye-iris-texture"></div>
-                <div className="eye-pupil"></div>
-                <div className="eye-highlight"></div>
-              </div>
+            <div className="eye">
+              <div className="eye-pupil"></div>
             </div>
           </div>
           <p className="intro-subtitle">Can you See it?</p>
@@ -962,8 +957,8 @@ function App() {
       {showClueModal && (
         <Modal isOpen={showClueModal} onClose={() => setShowClueModal(false)} title={null}>
           <div style={{textAlign: 'center', padding: '16px 0'}}>
-            <div style={{fontSize: '22px', marginBottom: '10px'}}>🔍 Reveal a Hint!</div>
-            <div style={{fontSize: '16px', marginBottom: '22px'}}>Stuck in the blur? Summon a clue by sharing the Seecret.</div>
+            <div className="clue-modal-title">🔍 Reveal a Hint!</div>
+            <div className="clue-modal-desc">Stuck in the blur? Summon a clue by sharing the Seecret.</div>
             <button
               className="clue-modal-button"
               onClick={() => {
