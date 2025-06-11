@@ -2595,12 +2595,12 @@ input:checked + .switch-slider:before {
 }
 
 .keyboard-key.correct-letter {
-  background: #990011;
+  background: #4CAF50;
   color: white;
 }
 
 .keyboard-key.correct-letter:hover {
-  background: #7D000E;
+  background: #388E3C;
 }
 
 @media (max-width: 600px) {
