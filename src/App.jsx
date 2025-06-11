@@ -684,18 +684,6 @@ function App() {
       
       <div className="examples-section">
         <div className="example-item">
-          <div className="example-image" style={{ filter: 'blur(20px)' }}>
-            <img src="examples/lake.jpg" alt="Lake example" />
-          </div>
-          <div className="example-letter-boxes">
-            <div className="example-letter-box">P</div>
-            <div className="example-letter-box">O</div>
-            <div className="example-letter-box">N</div>
-            <div className="example-letter-box">D</div>
-          </div>
-        </div>
-
-        <div className="example-item">
           <div className="example-image" style={{ filter: 'blur(7px)' }}>
             <img src="examples/pond.jpg" alt="Pond example" />
           </div>
@@ -706,7 +694,6 @@ function App() {
             <div className="example-letter-box wrong">D</div>
           </div>
         </div>
-
         <div className="example-item">
           <div className="example-image" style={{ filter: 'blur(7px)' }}>
             <img src="examples/lake.jpg" alt="Lake example" />
@@ -714,11 +701,10 @@ function App() {
           <div className="example-letter-boxes">
             <div className="example-letter-box correct">L</div>
             <div className="example-letter-box correct">A</div>
-            <div className="example-letter-box wrong">N</div>
-            <div className="example-letter-box wrong">D</div>
+            <div className="example-letter-box wrong">M</div>
+            <div className="example-letter-box wrong">P</div>
           </div>
         </div>
-
         <div className="example-item">
           <div className="example-image" style={{ filter: 'blur(0px)' }}>
             <img src="examples/lake.jpg" alt="Lake example" />
