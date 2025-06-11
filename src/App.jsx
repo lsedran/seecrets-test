@@ -725,7 +725,7 @@ function App() {
         <li>Guess the hidden word in <strong>6 tries</strong></li>
         <li>Each guess must be a <strong>real English word</strong> with the correct number of letters</li>
         <li>The image gets <strong>clearer with each guess</strong></li>
-        <li>Only <strong>correct</strong> letters are highlighted on the <strong>keyboard</strong></li>
+        <li>• <strong>Correct</strong> letters are highlighted in <span style={{ color: 'green' }}>Green</span> on the keyboard and <strong>incorrect</strong> letters are <span style={{ color: 'grey' }}>greyed out</span></li>
         <li>A new <em>Seecret</em> drops every day — come back to keep your <strong>streak</strong> alive!</li>
       </ul>
 
