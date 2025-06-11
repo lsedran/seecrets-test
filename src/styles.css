@@ -2691,7 +2691,7 @@ input:checked + .switch-slider:before {
 
 .next-puzzle-button:hover {
   background-color: #4a7d45;
-}
+} 
 
 .play-now-button {
   margin-top: 24px;
@@ -2848,5 +2848,11 @@ input:checked + .switch-slider:before {
   color: #1B4D3E;
   margin-bottom: 28px;
   font-family: inherit;
+}
+
+.example-letter-box.wrong {
+  background: #b0b6bb;
+  color: #fff;
+  border: 2px solid #b0b6bb;
 }
   

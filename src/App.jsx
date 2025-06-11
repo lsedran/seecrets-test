@@ -702,8 +702,8 @@ function App() {
           <div className="example-letter-boxes">
             <div className="example-letter-box correct">L</div>
             <div className="example-letter-box correct">A</div>
-            <div className="example-letter-box">N</div>
-            <div className="example-letter-box">D</div>
+            <div className="example-letter-box wrong">N</div>
+            <div className="example-letter-box wrong">D</div>
           </div>
         </div>
 
@@ -995,7 +995,7 @@ function App() {
               }}
               style={{marginTop: '10px', fontSize: '17px'}}
             >
-              🪄 Copy Link & Unveil Clue
+              �� Copy Link & Unveil Clue
             </button>
           </div>
         </Modal>
