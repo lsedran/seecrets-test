@@ -1269,8 +1269,15 @@ body:not(.intro-active) .modal-overlay {
 }
 
 .example-letter-box.correct {
-  background: rgba(153, 0, 17, 0.1);
-  border-color: #990011;
+  background: #4CAF50;
+  color: #fff;
+  border: 2px solid #4CAF50;
+}
+
+.example-letter-box.wrong {
+  background: #b0b6bb;
+  color: #fff;
+  border: 2px solid #b0b6bb;
 }
 
 .example-label {
