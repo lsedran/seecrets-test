@@ -902,7 +902,7 @@ function App() {
           <button 
             className="share-button"
             onClick={() => {
-              const shareText = `I GOT THE SEECRET IN ${numberToEmoji(guessHistory.length)}...Did you see it too? 👁️`;
+              const shareText = `I GOT TODAY'S SEECRET IN ${numberToEmoji(guessHistory.length)}...Did you see it too? 👁️`;
               if (navigator.share) {
                 navigator.share({
                   title: 'Seecret',
