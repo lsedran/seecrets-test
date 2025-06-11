@@ -11,7 +11,8 @@ export const dailyPuzzles = [
   { image: "images/guitar.jpg", answer: "GUITAR" },
   { image: "images/abacus.jpg", answer: "ABACUS" },
   { image: "images/cactus.jpg", answer: "CACTUS" },
-  { image: "images/printer.jpg", answer: "PRINTER" }
+  { image: "images/printer.jpg", answer: "PRINTER" },
+  { image: "images/scarab.jpg", answer: "SCARAB" }
 ]; 
 
 const startDate = new Date(2025, 5, 9); // Months are 0-indexed: 5 = June

@@ -125,6 +125,7 @@ function App() {
   const [showGameOverModal, setShowGameOverModal] = useState(false);
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
   const [correctLetters, setCorrectLetters] = useState(new Set());
+  const [wrongLetters, setWrongLetters] = useState(new Set());
   const [isJiggling, setIsJiggling] = useState(false);
   const [allPuzzlesCompleted, setAllPuzzlesCompleted] = useState(false);
   const [showEndOfPlaytest, setShowEndOfPlaytest] = useState(false);
@@ -359,14 +360,18 @@ function App() {
     const answerCapitalized = currentPuzzle.answer.toUpperCase();
     console.log('DEBUG - Answer:', answerCapitalized);
 
-    // Update correct letters set
+    // Update correct and wrong letters set
     const newCorrectLetters = new Set(correctLetters);
+    const newWrongLetters = new Set(wrongLetters);
     for (let i = 0; i < normalizedGuess.length; i++) {
       if (answerCapitalized.includes(normalizedGuess[i])) {
         newCorrectLetters.add(normalizedGuess[i]);
+      } else {
+        newWrongLetters.add(normalizedGuess[i]);
       }
     }
     setCorrectLetters(newCorrectLetters);
+    setWrongLetters(newWrongLetters);
 
     // Calculate correct letters in current guess (only exact position matches)
     const correctCount = getCorrectLetterCount(normalizedGuess, answerCapitalized);
@@ -590,6 +595,7 @@ function App() {
     if (nextIndex < dailyPuzzles.length) {
       setCurrentPuzzleIndex(nextIndex);
       setCorrectLetters(new Set());
+      setWrongLetters(new Set());
       setCurrentLetterIndex(0);
       setAttempts(0);
       setGuessHistory([]);
@@ -604,6 +610,7 @@ function App() {
       setAllPuzzlesCompleted(true);
       setCurrentPuzzleIndex(0);
       setCorrectLetters(new Set());
+      setWrongLetters(new Set());
       setCurrentLetterIndex(0);
       setAttempts(0);
       setGuessHistory([]);
@@ -634,6 +641,7 @@ function App() {
         setShowShareModal(false);
         setCurrentLetterIndex(0);
         setCorrectLetters(new Set());
+        setWrongLetters(new Set());
       }
     };
 
@@ -656,6 +664,11 @@ function App() {
       }, 100);
     }
   }, [showHowToPlay, showIntro, currentPuzzle]);
+
+  // Reset wrongLetters on new puzzle
+  useEffect(() => {
+    setWrongLetters(new Set());
+  }, [currentPuzzleIndex]);
 
   if (!currentPuzzle) return <div>Loading...</div>
 
@@ -842,7 +855,7 @@ function App() {
                           <button
                             key={key}
                             type="button"
-                            className={`keyboard-key ${key === 'ENTER' ? 'enter-key' : ''} ${key === '⌫' ? 'backspace-key' : ''} ${correctLetters.has(key) ? 'correct-letter' : ''}`}
+                            className={`keyboard-key ${key === 'ENTER' ? 'enter-key' : ''} ${key === '⌫' ? 'backspace-key' : ''} ${correctLetters.has(key) ? 'correct-letter' : ''} ${wrongLetters.has(key) ? 'wrong-letter' : ''}`}
                             onClick={() => handleKeyboardClick(key)}
                           >
                             {key}

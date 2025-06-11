@@ -2603,6 +2603,15 @@ input:checked + .switch-slider:before {
   background: #388E3C;
 }
 
+.keyboard-key.wrong-letter {
+  background: #b0b6bb;
+  color: #fff;
+}
+
+.keyboard-key.wrong-letter:hover {
+  background: #a0a5aa;
+}
+
 @media (max-width: 600px) {
   .keyboard {
     padding: 5px;
