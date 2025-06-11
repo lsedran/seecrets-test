@@ -700,8 +700,20 @@ function App() {
             <img src="examples/pond.jpg" alt="Pond example" />
           </div>
           <div className="example-letter-boxes">
-            <div className="example-letter-box correct">P</div>
-            <div className="example-letter-box correct">O</div>
+            <div className="example-letter-box wrong">P</div>
+            <div className="example-letter-box wrong">O</div>
+            <div className="example-letter-box wrong">N</div>
+            <div className="example-letter-box wrong">D</div>
+          </div>
+        </div>
+
+        <div className="example-item">
+          <div className="example-image" style={{ filter: 'blur(7px)' }}>
+            <img src="examples/lake.jpg" alt="Lake example" />
+          </div>
+          <div className="example-letter-boxes">
+            <div className="example-letter-box correct">L</div>
+            <div className="example-letter-box correct">A</div>
             <div className="example-letter-box wrong">N</div>
             <div className="example-letter-box wrong">D</div>
           </div>
