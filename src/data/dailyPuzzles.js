@@ -13,3 +13,8 @@ export const dailyPuzzles = [
   { image: "images/cactus.jpg", answer: "CACTUS" },
   { image: "images/printer.jpg", answer: "PRINTER" }
 ]; 
+
+const startDate = new Date(2025, 5, 9); // Months are 0-indexed: 5 = June
+const now = new Date();
+const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+console.log('DEBUG: Today is', today.toString()); 

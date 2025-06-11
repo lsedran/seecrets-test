@@ -85,10 +85,12 @@ function numberToEmoji(num) {
 }
 
 function App() {
-  // Add this function to get the current puzzle index based on date
+  // Add this function to get the current puzzle index based on local date
   const getCurrentPuzzleIndex = () => {
-    const startDate = new Date('2025-06-09'); // Updated start date to June 9, 2025
-    const today = new Date();
+    // Months are 0-indexed: 5 = June
+    const startDate = new Date(2025, 5, 9); // June 9, 2025, local time
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()); // local midnight
     const diffTime = Math.abs(today - startDate);
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     return diffDays % dailyPuzzles.length;
