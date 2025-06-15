@@ -7,7 +7,7 @@ import PuzzleDebug from './PuzzleDebug'
 import Modal from './components/Modal'
 
 const MAX_ATTEMPTS = 6
-const BLUR_LEVELS = [13, 9, 7, 4, 2, 1, 0] // Even more accessible blur levels
+const BLUR_LEVELS = [11, 8, 7, 4, 2, 1, 0] // Even more accessible blur levels
 
 // Add keyboard layout constants
 const KEYBOARD_ROWS = [
