@@ -680,8 +680,7 @@ function App() {
   const tutorialContent = (
     <div className="tutorial-content">
       <h2>HOW TO PLAY SEECRET</h2>
-      <p className="tutorial-tagline">Guess the word. Reveal the image. One letter at a time.</p>
-      
+      <p className="tutorial-tagline">Reveal the image. One letter at a time.</p>      
       <div className="examples-section">
         <div className="example-item">
           <div className="example-image" style={{ filter: 'blur(7px)' }}>
