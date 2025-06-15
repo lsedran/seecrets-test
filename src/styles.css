@@ -493,7 +493,7 @@ body:not(.intro-active) .header-banner {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: none;
   border: none;
   cursor: pointer;
   color: white;
@@ -505,8 +505,8 @@ body:not(.intro-active) .header-banner {
 }
 
 .help-button:hover {
-  background: rgba(255, 255, 255, 0.3);
   transform: scale(1.1);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .help-button:active {
