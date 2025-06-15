@@ -2810,6 +2810,17 @@ input:checked + .switch-slider:before {
   color: #fff !important;
 }
 
+.header-buttons .clue-button {
+  transition: all 0.2s ease;
+}
+.header-buttons .clue-button:hover {
+  transform: scale(1.1);
+  color: #ffe0e6;
+}
+.header-buttons .clue-button:active {
+  transform: scale(0.95);
+}
+
 .header-buttons button.clue-button {
   width: auto;
   height: auto;
