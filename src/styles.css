@@ -2862,4 +2862,12 @@ input:checked + .switch-slider:before {
   color: #fff;
   border: 2px solid #b0b6bb;
 }
+
+.header-buttons .help-button {
+  background: none !important;
+  box-shadow: none !important;
+}
+.header-buttons .help-button:hover {
+  background: none !important;
+}
   
