@@ -11,10 +11,14 @@ export const dailyPuzzles = [
   { image: "images/abacus.jpg", answer: "ABACUS" },
   { image: "images/cactus.jpg", answer: "CACTUS" },
   { image: "images/printer.jpg", answer: "PRINTER" },
-  { image: "images/scarab.jpg", answer: "SCARAB" }
+  { image: "images/scarab.jpg", answer: "SCARAB" },
+  { image: "images/Shell.jpg", answer: "SHELL" },
+  { image: "images/Moth.jpg", answer: "MOTH" },
+  { image: "images/Drums.jpg", answer: "DRUMS" },
+  { image: "images/VHS.jpg", answer: "VHS" }
 ];
 
-const startDate = new Date(2024, 2, 19); // March 19, 2024
+const startDate = new Date(2025, 5, 9); // June 9, 2025
 const now = new Date();
 const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 console.log('DEBUG: Today is', today.toString()); 
