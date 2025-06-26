@@ -88,7 +88,7 @@ function App() {
   // Add this function to get the current puzzle index based on local date
   const getCurrentPuzzleIndex = () => {
     // Months are 0-indexed: 5 = June
-    const startDate = new Date(2025, 5, 9); // June 9, 2025, local time
+    const startDate = new Date(2025, 5, 25); // June 25, 2025, local time
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()); // local midnight
     const diffTime = Math.abs(today - startDate);
