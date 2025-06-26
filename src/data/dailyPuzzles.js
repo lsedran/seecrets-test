@@ -18,7 +18,7 @@ export const dailyPuzzles = [
   { image: "images/VHS.jpg", answer: "VHS" }
 ];
 
-const startDate = new Date(2025, 5, 9); // June 9, 2025
+const startDate = new Date(2025, 5, 25); // June 25, 2025
 const now = new Date();
 const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 console.log('DEBUG: Today is', today.toString()); 
