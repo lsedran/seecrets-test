@@ -156,6 +156,18 @@ export const wordList = {
     'That', 'This', 'These', 'Those', 'Some', 'Any', 'All', 'Every', 'Each', 'Both',
     'Either', 'Neither', 'None', 'Nothing', 'Something', 'Anything', 'Everything',
     'Someone', 'Anyone', 'Everyone', 'No one', 'Nobody', 'Somebody', 'Anybody', 'Everybody'
+  ],
+
+  acronyms: [
+    'VHS', 'DVD', 'USB', 'CPU', 'RAM', 'GPU', 'HD', 'LED', 'LCD', 'ATM', 'PIN', 'SIM', 'GPS', 'PDF', 'GIF', 'JPEG', 'PNG', 'HTML', 'CSS', 'URL', 'API', 'SQL', 'XML', 'JSON', 'LAN', 'WAN', 'WWW', 'HTTP', 'HTTPS', 'AI', 'VR', 'AR', 'TV', 'PC', 'MAC', 'APP', 'SMS', 'MMS', 'MP3', 'MP4', 'ZIP', 'RAR', 'DOC', 'TXT', 'CSV', 'EXE', 'BAT', 'DLL', 'OS', 'BIOS', 'SDK', 'IDE', 'UI', 'UX', 'FAQ', 'DOB', 'ETA', 'CEO', 'CFO', 'CTO', 'COO', 'HR', 'PR', 'R&D', 'QA', 'PM', 'AGM', 'ROI', 'B2B', 'B2C', 'CRM', 'ERP', 'SaaS', 'PaaS', 'IaaS', 'IoT', 'BYOD', 'KPI', 'OKR', 'TBD', 'TBA', 'FYI', 'ASAP', 'DIY', 'ETA', 'PTO', 'OOO', 'WFH', 'IMO', 'IRL', 'NSFW', 'TLDR', 'BRB', 'IDK', 'LOL', 'OMG', 'BTW', 'FYI', 'FAQ', 'DM', 'PM', 'RT', 'MT', 'ICYMI', 'FOMO', 'YOLO', 'SMH', 'TBH', 'BFF', 'JK', 'TTYL', 'IMHO', 'ROFL', 'LMAO', 'BRB', 'GTG', 'TTFN', 'IDC', 'ILY', 'ILYSM', 'NVM', 'RN', 'SRSLY', 'TMI', 'WBU', 'WYCM', 'YMMV', 'YW', 'GG', 'GLHF', 'NPC', 'OP', 'XP', 'AFK', 'GGWP', 'PVP', 'PVE', 'RPG', 'FPS', 'MOBA', 'MMO', 'MMORPG', 'RTS', 'TBS', 'BR', 'DLC', 'F2P', 'P2W', 'RNG', 'XP', 'HP', 'MP', 'AP', 'DPS', 'AOE', 'CC', 'CD', 'DOT', 'HOT', 'TP', 'ULT', 'ZHP', 'ZMP', 'ZAP', 'ZXP', 'ZHP', 'ZMP', 'ZAP', 'ZXP'
+  ],
+
+  answers: [
+    'PAWN', 'PODIUM', 'ZIPPER', 'ANTLERS', 'FLAMINGO', 'WICK', 'GUITAR', 'ABACUS', 'CACTUS', 'PRINTER', 'SCARAB', 'SHELL', 'MOTH', 'DRUMS'
+  ],
+
+  planets: [
+    'MERCURY', 'VENUS', 'EARTH', 'MARS', 'JUPITER', 'SATURN', 'URANUS', 'NEPTUNE', 'PLUTO'
   ]
 };
 
