@@ -16,7 +16,8 @@ export const dailyPuzzles = [
   { image: "images/img_015.jpg", answer: "MOTH" },
   { image: "images/img_016.jpg", answer: "DRUMS" },
   { image: "images/img_017.jpg", answer: "VHS" },
-  { image: "images/img_018.jpg", answer: "JUPITER" }
+  { image: "images/img_018.jpg", answer: "JUPITER" },
+  { image: "images/img_019.jpg", answer: "CALIPER" }
 ];
 
 const startDate = new Date(2025, 5, 25); // June 25, 2025
