@@ -1,21 +1,21 @@
 export const dailyPuzzles = [
-  { image: "images/pawn.png", answer: "PAWN" },
-  { image: "images/podium.jpg", answer: "PODIUM" },
-  { image: "images/zipper.jpg", answer: "ZIPPER" },
-  { image: "images/antlers.jpg", answer: "ANTLERS" },
-  { image: "images/flamingo.jpg", answer: "FLAMINGO" },
-  { image: "images/coral.jpg", answer: "CORAL" },
-  { image: "images/pizza.jpg", answer: "PIZZA" },
-  { image: "images/wick.jpg", answer: "WICK" },
-  { image: "images/guitar.jpg", answer: "GUITAR" },
-  { image: "images/abacus.jpg", answer: "ABACUS" },
-  { image: "images/cactus.jpg", answer: "CACTUS" },
-  { image: "images/printer.jpg", answer: "PRINTER" },
-  { image: "images/scarab.jpg", answer: "SCARAB" },
-  { image: "images/Shell.jpg", answer: "SHELL" },
-  { image: "images/Moth.jpg", answer: "MOTH" },
-  { image: "images/Drums.jpg", answer: "DRUMS" },
-  { image: "images/VHS.jpg", answer: "VHS" }
+  { image: "images/img_001.png", answer: "PAWN" },
+  { image: "images/img_002.jpg", answer: "PODIUM" },
+  { image: "images/img_003.jpg", answer: "ZIPPER" },
+  { image: "images/img_004.jpg", answer: "ANTLERS" },
+  { image: "images/img_005.jpg", answer: "FLAMINGO" },
+  { image: "images/img_006.jpg", answer: "CORAL" },
+  { image: "images/img_007.jpg", answer: "PIZZA" },
+  { image: "images/img_008.jpg", answer: "WICK" },
+  { image: "images/img_009.jpg", answer: "GUITAR" },
+  { image: "images/img_010.jpg", answer: "ABACUS" },
+  { image: "images/img_011.jpg", answer: "CACTUS" },
+  { image: "images/img_012.jpg", answer: "PRINTER" },
+  { image: "images/img_013.jpg", answer: "SCARAB" },
+  { image: "images/img_014.jpg", answer: "SHELL" },
+  { image: "images/img_015.jpg", answer: "MOTH" },
+  { image: "images/img_016.jpg", answer: "DRUMS" },
+  { image: "images/img_017.jpg", answer: "VHS" }
 ];
 
 const startDate = new Date(2025, 5, 25); // June 25, 2025

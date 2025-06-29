@@ -785,14 +785,16 @@ function App() {
         <div className="game-main-content">
           <div className="center-content">
             <div className="image-section">
-        <div className="image-container">
+        <div className="image-container" onClick={(e) => e.preventDefault()}>
           <img 
             src={currentPuzzle.image}
             alt="Seecret image"
             style={{ 
                     filter: `blur(${currentBlurLevel}px)`,
-              transition: 'filter 0.5s ease-out'
+              transition: 'filter 0.5s ease-out',
+              pointerEvents: 'none'
             }}
+            onContextMenu={(e) => e.preventDefault()}
           />
               </div>
         </div>

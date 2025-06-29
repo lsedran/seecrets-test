@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build && node scripts/fix-mime.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "rename-images": "node scripts/rename-images.js",
+    "reverse-images": "node scripts/rename-images.js reverse"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.3",
