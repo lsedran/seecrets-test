@@ -17,7 +17,13 @@ export const dailyPuzzles = [
   { image: "images/img_016.jpg", answer: "DRUMS" },
   { image: "images/img_017.jpg", answer: "VHS" },
   { image: "images/img_018.jpg", answer: "JUPITER" },
-  { image: "images/img_019.jpg", answer: "CALIPER" }
+  { image: "images/img_019.jpg", answer: "CALIPER" },
+  { image: "images/img_020.jpg", answer: "PEACOCK" },
+  { image: "images/img_021.jpg", answer: "HAMMER" },
+  { image: "images/img_022.jpg", answer: "GOURD" },
+  { image: "images/img_023.jpg", answer: "CHERRY" },
+  { image: "images/img_024.jpg", answer: "BOUQUET" },
+  { image: "images/img_025.jpg", answer: "ROUTER" }
 ];
 
 const startDate = new Date(2025, 5, 25); // June 25, 2025

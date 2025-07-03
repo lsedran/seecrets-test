@@ -163,7 +163,7 @@ export const wordList = {
   ],
 
   answers: [
-    'PAWN', 'PODIUM', 'ZIPPER', 'ANTLERS', 'FLAMINGO', 'WICK', 'GUITAR', 'ABACUS', 'CACTUS', 'PRINTER', 'SCARAB', 'SHELL', 'MOTH', 'DRUMS', 'JUPITER', 'CALIPER', 'CORAL', 'PIZZA', 'VHS'
+    'PAWN', 'PODIUM', 'ZIPPER', 'ANTLERS', 'FLAMINGO', 'WICK', 'GUITAR', 'ABACUS', 'CACTUS', 'PRINTER', 'SCARAB', 'SHELL', 'MOTH', 'DRUMS', 'JUPITER', 'CALIPER', 'CORAL', 'PIZZA', 'VHS', 'PEACOCK', 'HAMMER', 'GOURD', 'CHERRY', 'BOUQUET', 'ROUTER'
   ],
 
   planets: [
