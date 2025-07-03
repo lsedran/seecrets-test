@@ -2698,22 +2698,39 @@ input:checked + .switch-slider:before {
 }
 
 .next-puzzle-button {
-  width: 100%;
-  max-width: 300px;
-  height: 60px;
-  font-size: 1.2em;
-  font-weight: bold;
-  background-color: #538d4e;
+  background: var(--primary-color);
   color: white;
   border: none;
-  border-radius: 8px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .next-puzzle-button:hover {
-  background-color: #4a7d45;
-} 
+  background: var(--primary-color-dark);
+  transform: translateY(-1px);
+}
+
+.next-puzzle-button:active {
+  transform: translateY(0);
+}
+
+.header-buttons .next-puzzle-button {
+  margin: 0 8px;
+}
+
+.header-buttons .next-puzzle-button:hover {
+  background: var(--primary-color-dark);
+}
+
+.header-buttons .next-puzzle-button:active {
+  transform: translateY(0);
+}
 
 .play-now-button {
   margin-top: 24px;

@@ -85,18 +85,8 @@ function numberToEmoji(num) {
 }
 
 function App() {
-  // Add this function to get the current puzzle index based on local date
-  const getCurrentPuzzleIndex = () => {
-    // Months are 0-indexed: 5 = June
-    const startDate = new Date(2025, 5, 25); // June 25, 2025, local time
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()); // local midnight
-    const diffTime = Math.abs(today - startDate);
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays % dailyPuzzles.length;
-  };
-
-  const [currentPuzzleIndex, setCurrentPuzzleIndex] = useState(getCurrentPuzzleIndex());
+  // Start with the first puzzle instead of daily calculation
+  const [currentPuzzleIndex, setCurrentPuzzleIndex] = useState(0);
   const currentPuzzle = dailyPuzzles[currentPuzzleIndex];
   const [attempts, setAttempts] = useState(0)
   const [isAttemptAnimating, setIsAttemptAnimating] = useState(false)
@@ -624,37 +614,6 @@ function App() {
     }
   };
 
-  // Add this effect to check for date changes
-  useEffect(() => {
-    const checkDateChange = () => {
-      const newPuzzleIndex = getCurrentPuzzleIndex();
-      if (newPuzzleIndex !== currentPuzzleIndex) {
-        setCurrentPuzzleIndex(newPuzzleIndex);
-        setAttempts(0);
-        setGuessHistory([]);
-        setGameState('playing');
-        setHasWon(false);
-        setGuess(Array(dailyPuzzles[newPuzzleIndex].answer.length).fill(''));
-        setErrorMessage('');
-        setBestCorrectCount(0);
-        setCurrentBlurLevel(BLUR_LEVELS[0]);
-        setShowShareModal(false);
-        setCurrentLetterIndex(0);
-        setCorrectLetters(new Set());
-        setWrongLetters(new Set());
-      }
-    };
-
-    // Check immediately
-    checkDateChange();
-
-    // Set up interval to check every minute
-    const interval = setInterval(checkDateChange, 60000);
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
-  }, [currentPuzzleIndex]);
-
   // Add effect to focus input when tutorial is closed
   useEffect(() => {
     if (!showHowToPlay && !showIntro && currentPuzzle && currentPuzzle.answer) {
@@ -723,7 +682,7 @@ function App() {
         <li>Each guess must be a <strong>real English word</strong> with the correct number of letters</li>
         <li>The image gets <strong>clearer with each guess</strong></li>
         <li><strong>Correct</strong> letters are highlighted in <span style={{ color: 'green' }}>green</span> on the keyboard and <strong>incorrect</strong> letters are <span style={{ color: 'grey' }}>greyed out</span></li>
-        <li>A new <em>Seecret</em> drops every day — come back to keep your <strong>streak</strong> alive!</li>
+        <li>Use the <strong>NEXT</strong> button to try more puzzles!</li>
       </ul>
 
       <button 
@@ -764,6 +723,13 @@ function App() {
               aria-label="Share puzzle"
             >
               CLUE
+            </button>
+            <button 
+              className="next-puzzle-button" 
+              onClick={handleNextPuzzle}
+              aria-label="Next puzzle"
+            >
+              NEXT
             </button>
             <button 
               className="help-button" 
