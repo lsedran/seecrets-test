@@ -2913,4 +2913,34 @@ input:checked + .switch-slider:before {
 .header-buttons .help-button:hover {
   background: none !important;
 }
+
+/* Modal-specific next puzzle button styling */
+.share-modal-content .next-puzzle-button,
+.game-over-modal .next-puzzle-button {
+  width: 100%;
+  max-width: 300px;
+  height: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 10px;
+}
+
+.share-modal-content .next-puzzle-button:hover,
+.game-over-modal .next-puzzle-button:hover {
+  background: var(--primary-color-dark);
+  transform: translateY(-1px);
+}
+
+.share-modal-content .next-puzzle-button:active,
+.game-over-modal .next-puzzle-button:active {
+  transform: translateY(0);
+}
   

@@ -682,7 +682,7 @@ function App() {
         <li>Each guess must be a <strong>real English word</strong> with the correct number of letters</li>
         <li>The image gets <strong>clearer with each guess</strong></li>
         <li><strong>Correct</strong> letters are highlighted in <span style={{ color: 'green' }}>green</span> on the keyboard and <strong>incorrect</strong> letters are <span style={{ color: 'grey' }}>greyed out</span></li>
-        <li>Use the <strong>NEXT</strong> button to try more puzzles!</li>
+        <li>Use the <strong>NEXT</strong> button in the header to try more puzzles!</li>
       </ul>
 
       <button 
@@ -882,6 +882,16 @@ function App() {
           >
             Share Results
           </button>
+          <button 
+            className="next-puzzle-button"
+            onClick={() => {
+              setShowShareModal(false);
+              handleNextPuzzle();
+            }}
+            style={{marginTop: '10px'}}
+          >
+            Next Puzzle
+          </button>
         </div>
       </Modal>
 
@@ -893,19 +903,16 @@ function App() {
         <div className="game-over-modal">
           <h2>Game Over</h2>
           <p>The answer was <strong>{currentPuzzle.answer}</strong></p>
-          {!allPuzzlesCompleted ? (
-            null
-          ) : (
-            <>
-              <p>Congratulations! You've completed all puzzles!</p>
-              <button onClick={() => {
-                setAllPuzzlesCompleted(false);
-                setCurrentPuzzleIndex(0);
-                setCurrentPuzzle(dailyPuzzles[0]);
-                handlePlayAgain();
-              }}>Play Again</button>
-            </>
-          )}
+          <button 
+            className="next-puzzle-button"
+            onClick={() => {
+              setShowGameOverModal(false);
+              handleNextPuzzle();
+            }}
+            style={{marginTop: '10px'}}
+          >
+            Next Puzzle
+          </button>
         </div>
       </Modal>
 
